@@ -7,10 +7,10 @@ export const createModel = (
   guiParams: any,
   targetRef: any
 ) => {
-  const position = Cesium.Cartesian3.fromDegrees(
-    -123.0744619,
-    44.0503706,
-    height
+  const position = Cesium.Cartesian3.fromRadians(
+    -2.1463338399937277,
+    0.6677959688982861,
+    32.18991401746337
   );
   const heading = Cesium.Math.toRadians(135);
   const pitch = 0;
