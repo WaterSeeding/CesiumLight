@@ -12,6 +12,12 @@ export const setDirectionalLight = (): Cesium.DirectionalLight => {
     directionalLightDestination
   );
 
+  console.log('defaultDirectionalLightDestination 1', defaultDirectionalLightDestination);
+
+  defaultDirectionalLightDestination.height = -defaultDirectionalLightDestination.height
+
+  console.log('defaultDirectionalLightDestination 2', defaultDirectionalLightDestination);
+
   const directionalLight = new Cesium.DirectionalLight({
     direction: Cesium.Cartesian3.fromDegrees(
       defaultDirectionalLightDestination.longitude,

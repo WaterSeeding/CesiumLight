@@ -9,18 +9,8 @@ import { setDirectionalLight } from "./setDirectionalLight";
 import { setFlashlight } from "./setFlashlight";
 import { setMoonLight } from "./setMoonLight";
 import { setCustomColorLight } from "./setCustomColorLight";
-import { setTime } from "./setTime";
-
-const showTime = (date: Date) => {
-  let year = date.getFullYear(); //获取当前年份
-  let mon = date.getMonth() + 1; //获取当前月份
-  let da = date.getDate(); //获取当前日
-  let h = date.getHours(); //获取小时
-  let m = date.getMinutes(); //获取分钟
-  let s = date.getSeconds(); //获取秒
-  let time = `${year} ${mon} ${da} ${h}:${m}:${s}`;
-  return time;
-};
+import { setTime, getTime, showTime } from "./time";
+import { getPosition } from "./getPosition";
 
 let targetRef: any = {
   getValue: (): any => {
@@ -33,16 +23,22 @@ let guiParams: { [key: string]: any } = {
   scale: 7.0,
 };
 
-let position = Cesium.Cartesian3.fromRadians(
+let modelPosition = Cesium.Cartesian3.fromRadians(
   -2.1463338399937277,
   0.6677959688982861,
   32.18991401746337
 );
 
+let defaultModelPosition = getPosition(modelPosition);
+
 createModel(
   viewer,
   "./static/CesiumBalloon.glb",
-  position,
+  Cesium.Cartesian3.fromDegrees(
+    defaultModelPosition.longitude,
+    defaultModelPosition.latitude,
+    defaultModelPosition.height
+  ),
   0.0,
   guiParams,
   targetRef
@@ -90,14 +86,7 @@ gui.domElement.id = "gui";
 let lightGui = {
   light: 4,
   getTime: () => {
-    const clock = viewer.clock;
-    let jsCurrentDate = new Date(clock.currentTime.toString());
-    console.warn(
-      "获取场景当前时间jsCurrentDate Date",
-      clock.currentTime.toString()
-    );
-    console.warn("获取场景当前时间jsCurrentDate", jsCurrentDate);
-    console.warn("获取场景当前时间", showTime(jsCurrentDate));
+    getTime(viewer);
   },
 };
 
@@ -110,9 +99,6 @@ let listen_light = gui.add(lightGui, "light", {
 });
 listen_light.onChange((v) => {
   switch (Number(v)) {
-    case 0:
-      reset();
-      break;
     case 1:
       reset();
       scene.light = directionalLight;

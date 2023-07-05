@@ -9,6 +9,8 @@ export const setCamera = (viewer: Cesium.Viewer) => {
   );
   let defaultCameraDirection = getPosition(cameraDestination);
 
+  // console.log("defaultCameraDirection", defaultCameraDirection);
+
   let headingRadiansValue = 2.2482480507178426;
   let pitchRadiansValue = -0.20084951548781982;
   let rollRadiansValue = 0.002593933673552762;
