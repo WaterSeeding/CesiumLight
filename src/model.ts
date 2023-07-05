@@ -3,15 +3,11 @@ import * as Cesium from "cesium";
 export const createModel = (
   viewer: Cesium.Viewer,
   url: string,
+  position: Cesium.Cartesian3,
   height: number,
   guiParams: any,
   targetRef: any
 ) => {
-  const position = Cesium.Cartesian3.fromRadians(
-    -2.1463338399937277,
-    0.6677959688982861,
-    32.18991401746337
-  );
   const heading = Cesium.Math.toRadians(135);
   const pitch = 0;
   const roll = 0;
